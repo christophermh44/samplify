@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samplify</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" type="module" defer></script>
+</head>
+<body data-app>
+    <header>
+        <h1>Samplify</h1>
+        <div class="header-group">
+            <div class="switch">
+                <button type="button" :class="{ active: mode === 'play' }" @click="mode = 'play'">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="M320-200v-560l440 280-440 280Z"/></svg>
+                    Play
+                </button>
+                <button type="button" :class="{ active: mode === 'edit' }" @click="mode = 'edit'">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="M120-120v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm584-528 56-56-56-56-56 56 56 56Z"/></svg>
+                    Edit
+                </button>
+            </div>
+        </div>
+        <div class="header-group">
+            <button type="button" title="Banks" @click="openBanks">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="M120-120q-33 0-56.5-23.5T40-200v-520h80v520h680v80H120Zm160-160q-33 0-56.5-23.5T200-360v-440q0-33 23.5-56.5T280-880h200l80 80h280q33 0 56.5 23.5T920-720v360q0 33-23.5 56.5T840-280H280Z"/></svg>
+            </button>
+            <button type="button" title="Settings" @click="openSettings">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg>
+            </button>
+        </div>
+    </header>
+    <main>
+        <Panel v-for="section in sectionsCount" :key="section" :mode="mode" :index="section" :banks="banks" :rows="rowsCount" :cols="colsCount"></Panel>
+    </main>
+    <dialog ref="banks">
+        <header>
+            <h2>Banks</h2>
+            <button type="button" @click="closeBanks">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </button>
+        </header>
+        <main>
+            <Bank v-for="bank in banks" :name="bank.name" :color="bank.color" @update="updateBank(bank.id, $event)" @delete="deleteBank(bank.id)"></Bank>
+            <button type="button" @click="addBank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                Add bank
+            </button>
+            <datalist id="color-presets">
+                <option value="#888888" />
+                <option value="#aaaaaa" />
+                <option value="#ffffff" />
+                <option value="#ffaaaa" />
+                <option value="#ffffaa" />
+                <option value="#aaffaa" />
+                <option value="#aaffff" />
+                <option value="#aaaaff" />
+                <option value="#ffaaff" />
+            </datalist>
+        </main>
+    </dialog>
+    <dialog ref="settings">
+        <header>
+            <h2>Settings</h2>
+            <button type="button" @click="closeSettings">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentcolor"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </button>
+        </header>
+        <main>
+            <div class="form-field">
+                <label class="form-field__label" for="settings-sections-count">Number of panels</label>
+                <input class="form-field__input" type="number" id="settings-sections-count" v-model="sectionsCount">
+            </div>
+            <div class="form-field">
+                <label class="form-field__label" for="settings-rows-count">Rows by panel</label>
+                <input class="form-field__input" type="number" id="settings-rows-count" v-model="rowsCount">
+            </div>
+            <div class="form-field">
+                <label class="form-field__label" for="settings-cols-count">Cols by panel</label>
+                <input class="form-field__input" type="number" id="settings-cols-count" v-model="colsCount">
+            </div>
+        </main>
+    </dialog>
+</body>
+</html>

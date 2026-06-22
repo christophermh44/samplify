@@ -1,0 +1,262 @@
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    font: inherit;
+}
+
+:root {
+    background-color: Canvas;
+    color: CanvasText;
+    color-scheme: light dark;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    width: 100vw;
+}
+
+dialog {
+    border: none;
+    border-radius: 0.5rem;
+    flex-direction: column;
+    height: calc(100vh - 8rem);
+    padding: 0;
+    width: calc(100vw - 8rem);
+}
+
+dialog[open] {
+    display: flex;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(1rem);
+}
+
+dialog main {
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+button {
+    align-items: center;
+    border: none;
+    border-radius: 0.25em;
+    cursor: pointer;
+    display: flex;
+    gap: 0.25em;
+    line-height: 1;
+    padding: 0.5em;
+}
+
+button:hover {
+    filter: brightness(1.2);
+}
+
+button:active {
+    filter: brightness(0.7);
+}
+
+select {
+    background-color: var(--color, revert);
+    color: black;
+}
+
+select option {
+    color: black;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0 0.5rem;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin: 0 0.5rem;
+}
+
+header {
+    align-items: stretch;
+    background-color: color-mix(in srgb, black, transparent 50%);
+    display: flex;
+    gap: 0.5em;
+    justify-content: space-between;
+    padding: 0.5em;
+}
+
+.header-group {
+    align-items: center;
+    display: flex;
+    gap: 0.5em;
+}
+
+.header-expand {
+    flex-grow: 1;
+}
+
+main {
+    align-items: stretch;
+    display: flex;
+    flex-grow: 1;
+    gap: 1em;
+    padding: 1em;
+    overflow-x: auto;
+}
+
+section {
+    background-color: color-mix(in srgb, black, transparent 50%);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    min-width: calc(50vw - 1.5rem);
+    overflow: hidden;
+}
+
+section > header {
+    background-color: color-mix(in srgb, black, transparent 70%);
+    gap: 0;
+    padding: 0;
+}
+
+section > header button {
+    border-radius: 0;
+}
+
+section > main {
+    display: grid;
+    grid-gap: 0.5em;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    grid-template-rows: repeat(var(--rows), 1fr);
+    flex-grow: 1;
+    padding: 0.5em;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+
+.form-field__label {
+    font-weight: bold;
+}
+
+.form-field__input {
+    color: inherit;
+    flex-grow: 1;
+    padding: 0.25em 0.5em;
+}
+
+.dialog-row {
+    align-items: stretch;
+    align-self: stretch;
+    background-color: color-mix(in srgb, white, transparent 92%);
+    border: thin solid color-mix(in srgb, white, transparent 80%);
+    border-radius: 0.5em;
+    display: flex;
+    gap: 0.5em;
+    padding: 1em;
+}
+
+.dialog-row .form-field {
+    justify-content: space-between;
+}
+
+.mis-a {
+    margin-inline-start: auto;
+}
+
+.mbe-a {
+    margin-block-end: auto;
+}
+
+.switch {
+    align-items: stretch;
+    background-color: color-mix(in srgb, white, transparent 92%);
+    border-radius: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.switch button {
+    background-color: transparent;
+    font-weight: bold;
+    padding-block: 0.25em;
+    text-transform: uppercase;
+}
+
+.switch button.active {
+    background-color: revert;
+}
+
+.cart-wrapper {
+    position: relative;
+}
+
+.cart {
+    align-items: center;
+    background-color: var(--color, revert);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+}
+
+.cart__progress {
+    appearance: none;
+    bottom: 0;
+    height: 0.75rem;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+
+.cart__progress::-webkit-progress-bar {
+    background-color: color-mix(in srgb, black, transparent 50%);
+    padding: 3px 1px 1px 1px;
+}
+
+.cart__progress::-webkit-progress-value {
+    background-color: black;
+    border-radius: calc(Infinity * 1px);
+}
+
+.cart__current {
+    bottom: 1.25em;
+    font-size: 75%;
+    left: 0.25em;
+    position: absolute;
+}
+
+.cart__duration {
+    bottom: 1.25em;
+    font-size: 75%;
+    position: absolute;
+    right: 0.25em;
+}
+
+.cart__status {
+    background-color: color-mix(in srgb, black, transparent 20%);
+    border-radius: calc(Infinity * 1px);
+    color: white;
+    font-size: 75%;
+    font-weight: bold;
+    left: 50%;
+    padding: 0.25em 0.5em;
+    position: absolute;
+    top: 0.25em;
+    translate: -50% 0;
+}
